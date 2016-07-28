@@ -12,6 +12,7 @@ module SymbolModule =
     [| Symbol.EqualOperator, [| Punctuation.Equals |]
        Symbol.LessThanOrEqualToOperator, [| Punctuation.LeftArrow; Punctuation.Equals |]
        Symbol.LeftScope, [| Punctuation.LeftParentheses |] |]
+    |> dict
   
   let GetPossibilities(fragment : Punctuation array) = 
     let startsWith (complete : Punctuation array) = 
@@ -19,5 +20,6 @@ module SymbolModule =
            |> Seq.take (fragment.Length)
            |> Seq.compareWith Operators.compare fragment)
     Combinations
-    |> Seq.where (fun (symb, punc) -> startsWith punc)
+    |> Seq.where (fun keyV -> startsWith keyV.Value)
+    |> Seq.map (fun keyV -> keyV.Key)
     |> Seq.toArray

@@ -15,3 +15,9 @@ let ``TSQL Keyword parsing has a failure and success case``() =
   Assert.AreEqual(Some(TSQLKeyword.SELECT), TSQLKeywordModule.ParseTSQLKeyword "SELECT")
   Assert.AreEqual(None, TSQLKeywordModule.ParseTSQLKeyword "DANIEL")
   
+[<Test>]
+let ``TSQL Keyword parsing lists correct possibilities``() = 
+  let possibilities = TSQLKeywordModule.GetPossibilities "ConTaiN"
+  Assert.AreEqual(2, possibilities.Length)
+  Assert.Contains(TSQLKeyword.CONTAINS, possibilities)
+  Assert.Contains(TSQLKeyword.CONTAINSTABLE, possibilities)

@@ -479,6 +479,14 @@ module ODBCKeywordModule =
        "ZONE", ZONE |]
     |> dict
   
+  ///Gets the possible values from a string fragment
+  let GetPossibilities(fragment : string) = 
+    let upperFragment = fragment.ToUpper()
+    ODBCKeywordLookup
+    |> Seq.where (fun keyV -> keyV.Key.StartsWith(upperFragment))
+    |> Seq.map (fun keyV -> keyV.Value)
+    |> Seq.toArray
+  
   ///Gets the appropriate Union Case from mapping, if any.
   let ParseODBCKeyword(words : string) = 
     match ODBCKeywordLookup.TryGetValue(words.ToUpper()) with
