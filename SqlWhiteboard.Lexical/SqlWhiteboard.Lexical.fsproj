@@ -49,6 +49,7 @@
     <Compile Include="TSQLKeyword.fs" />
     <Compile Include="ODBCKeyword.fs" />
     <Compile Include="Token.fs" />
+    <Compile Include="Tokenizer.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlWhiteboard.Core\SqlWhiteboard.Core.fsproj">
