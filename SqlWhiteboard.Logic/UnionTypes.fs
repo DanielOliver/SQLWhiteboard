@@ -12,15 +12,15 @@ type QueryExpression_ =
   | QueryParenthesisExpression_ of QueryParenthesisExpression
   | QuerySpecification_ of QuerySpecification
 
-type TableReference_ = 
-  | JoinParenthesisTableReference_ of JoinParenthesisTableReference
-  | JoinTableReference_ of JoinTableReference
-  | OdbcQualifiedJoinTableReference_ of OdbcQualifiedJoinTableReference
-  | TableReferenceWithAlias_ of TableReferenceWithAlias
-
-type JoinTableReference_ = 
-  | QualifiedJoin_ of QualifiedJoin
-  | UnqualifiedJoin_ of UnqualifiedJoin
+type TableReferenceWithAliasAndColumns_ = 
+  | BulkOpenRowset_ of BulkOpenRowset
+  | ChangeTableChangesTableReference_ of ChangeTableChangesTableReference
+  | ChangeTableVersionTableReference_ of ChangeTableVersionTableReference
+  | DataModificationTableReference_ of DataModificationTableReference
+  | InlineDerivedTable_ of InlineDerivedTable
+  | QueryDerivedTable_ of QueryDerivedTable
+  | SchemaObjectFunctionTableReference_ of SchemaObjectFunctionTableReference
+  | VariableMethodCallTableReference_ of VariableMethodCallTableReference
 
 type TableReferenceWithAlias_ = 
   | AdHocTableReference_ of AdHocTableReference
@@ -37,12 +37,12 @@ type TableReferenceWithAlias_ =
   | UnpivotedTableReference_ of UnpivotedTableReference
   | VariableTableReference_ of VariableTableReference
 
-type TableReferenceWithAliasAndColumns_ = 
-  | BulkOpenRowset_ of BulkOpenRowset
-  | ChangeTableChangesTableReference_ of ChangeTableChangesTableReference
-  | ChangeTableVersionTableReference_ of ChangeTableVersionTableReference
-  | DataModificationTableReference_ of DataModificationTableReference
-  | InlineDerivedTable_ of InlineDerivedTable
-  | QueryDerivedTable_ of QueryDerivedTable
-  | SchemaObjectFunctionTableReference_ of SchemaObjectFunctionTableReference
-  | VariableMethodCallTableReference_ of VariableMethodCallTableReference
+type JoinTableReference_ = 
+  | QualifiedJoin_ of QualifiedJoin
+  | UnqualifiedJoin_ of UnqualifiedJoin
+
+type TableReference_ = 
+  | JoinParenthesisTableReference_ of JoinParenthesisTableReference
+  | JoinTableReference_ of JoinTableReference
+  | OdbcQualifiedJoinTableReference_ of OdbcQualifiedJoinTableReference
+  | TableReferenceWithAlias_ of TableReferenceWithAlias
