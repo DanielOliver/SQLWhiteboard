@@ -1,4 +1,4 @@
-﻿module SqlWhiteboard.Logic.TSqlActivePatterns
+﻿module SqlWhiteboard.Logic.TsqlMatchSubClass
 
 open Microsoft.SqlServer.TransactSql.ScriptDom
 
@@ -26,6 +26,7 @@ let MatchTableReferenceWithAliasAndColumns(table : TableReferenceWithAliasAndCol
   | :? SchemaObjectFunctionTableReference as x -> 
     TableReferenceWithAliasAndColumns_.SchemaObjectFunctionTableReference_ x
   | :? VariableMethodCallTableReference as x -> TableReferenceWithAliasAndColumns_.VariableMethodCallTableReference_ x
+  | _ -> failwithf "Unknown type %s" (table.GetType().Name)
 
 let MatchTableReferenceWithAlias(table : TableReferenceWithAlias) = 
   match table with

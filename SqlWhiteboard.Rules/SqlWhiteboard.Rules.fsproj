@@ -5,14 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>fd1d63c8-a642-4101-afef-af487bf5858e</ProjectGuid>
+    <ProjectGuid>10dc813d-c5ae-42c9-aadd-1b117dc5342d</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SqlWhiteboard.Logic</RootNamespace>
-    <AssemblyName>SqlWhiteboard.Logic</AssemblyName>
+    <RootNamespace>SqlWhiteboard.Rules</RootNamespace>
+    <AssemblyName>SqlWhiteboard.Rules</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>SqlWhiteboard.Logic</Name>
+    <Name>SqlWhiteboard.Rules</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\SqlWhiteboard.Logic.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\SqlWhiteboard.Rules.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\SqlWhiteboard.Logic.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\SqlWhiteboard.Rules.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom" />
@@ -45,11 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="UnionTypes.fs" />
-    <Compile Include="TSqlMatchSubClass.fs" />
-    <Compile Include="RuleWarning.fs" />
-    <Compile Include="Rule.fs" />
-    <Compile Include="RuleEngine.fs" />
+    <Compile Include="UpdateStatementWhere.fs" />
+    <Compile Include="RuleFactory.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqlWhiteboard.Logic\SqlWhiteboard.Logic.fsproj">
+      <Name>SqlWhiteboard.Logic</Name>
+      <Project>{fd1d63c8-a642-4101-afef-af487bf5858e}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

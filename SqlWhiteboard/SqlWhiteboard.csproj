@@ -55,6 +55,10 @@
       <Project>{fd1d63c8-a642-4101-afef-af487bf5858e}</Project>
       <Name>SqlWhiteboard.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SqlWhiteboard.Rules\SqlWhiteboard.Rules.fsproj">
+      <Project>{10dc813d-c5ae-42c9-aadd-1b117dc5342d}</Project>
+      <Name>SqlWhiteboard.Rules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
