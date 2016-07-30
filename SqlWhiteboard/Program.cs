@@ -8,7 +8,10 @@ namespace SqlWhiteboard
         static void Main(string[] args)
         {
             //var scriptText = "SELECT (SELECT a.ID FROM LastLogin a) [T], * FROM dbo.People p FULL OUTER JOIN ThirdTable ON ThirdTable.ID = p.ID LEFT OUTER JOIN Employees e ON e.PeopleID = p.ID WHERE p.Name IN (SELECT c.Name FROM Contacts c) AND p.ID = @A;";
-            var scriptText = "UPDATE People SET FirstName = 'Daniel'";
+            var scriptText = 
+                @"UPDATE People SET FirstName = 'Daniel';
+                 SELECT TOP 500 * FROM #TempTable
+                ";
 
             var parser = new TSql120Parser(true);
 

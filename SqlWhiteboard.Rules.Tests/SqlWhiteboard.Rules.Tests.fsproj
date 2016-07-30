@@ -52,6 +52,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Content Include="packages.config" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="UpdateStatementWhereTests.fs" />
+    <Compile Include="SelectStatementTopTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom" />

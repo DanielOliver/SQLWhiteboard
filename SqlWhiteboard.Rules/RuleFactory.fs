@@ -1,6 +1,7 @@
 ﻿module SqlWhiteboard.Rules.RuleFactory
 
 let GetAllRules() =
-  [| UpdateStatementWhere().AsRule()  
+  [|  UpdateStatementWhere().AsRule()
+      SelectStatementTop().AsRule()
   |]
 

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="UpdateStatementWhere.fs" />
+    <Compile Include="SelectStatementTop.fs" />
     <Compile Include="RuleFactory.fs" />
   </ItemGroup>
   <ItemGroup>
