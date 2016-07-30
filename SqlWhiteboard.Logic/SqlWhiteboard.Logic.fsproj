@@ -49,6 +49,7 @@
     <Compile Include="TSqlMatchSubClass.fs" />
     <Compile Include="RuleWarning.fs" />
     <Compile Include="Rule.fs" />
+    <Compile Include="VisitorRule.fs" />
     <Compile Include="RuleEngine.fs" />
   </ItemGroup>
   <PropertyGroup>
