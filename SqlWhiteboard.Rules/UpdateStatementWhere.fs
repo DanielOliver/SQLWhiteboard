@@ -11,4 +11,3 @@ type UpdateStatementWhere() =
       let firstToken = statement.ScriptTokenStream.[statement.FirstTokenIndex]
       this.AddWarning
         (firstToken.Line, firstToken.Column, statement.FragmentLength, "Update statement is missing a where clause")
-    ()
