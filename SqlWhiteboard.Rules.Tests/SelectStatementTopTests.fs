@@ -44,3 +44,15 @@ let ``SelectStatementTop should catch nested queries``() =
   Assert.IsNotEmpty(getWarnings union, union)
   Assert.IsEmpty(getWarnings third, third)
   Assert.IsNotEmpty(getWarnings intersect, intersect)
+
+[<Test>]
+let ``Scalar SubQuery should have order by with TOP``() = 
+  let sql = 
+    "SELECT FirstName, (SELECT TOP 1 LoginDate FROM Logins WHERE PeopleID = People.ID) [LastLoginDate] FROM People"
+  Assert.IsNotEmpty(getWarnings sql, sql)
+
+[<Test>]
+let ``Scalar SubQuery should recognize valid``() = 
+  let sql = 
+    "SELECT FirstName, (SELECT TOP 1 LoginDate FROM Logins WHERE PeopleID = People.ID ORDER BY LoginDate DESC) [LastLoginDate] FROM People"
+  Assert.IsEmpty(getWarnings sql, sql)
