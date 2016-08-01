@@ -8,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+using Microsoft.CodeAnalysis.Text;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace SqlWhiteboard.TSQL.Classifier
 {
@@ -28,6 +32,7 @@ namespace SqlWhiteboard.TSQL.Classifier
         internal TSQLClassifier(IClassificationTypeRegistryService registry)
         {
             this.classificationType = registry.GetClassificationType("TSQLClassifier");
+            var one = "five" + "two";
         }
 
         #region IClassifier
@@ -57,11 +62,21 @@ namespace SqlWhiteboard.TSQL.Classifier
         /// <returns>A list of ClassificationSpans that represent spans identified to be of this classification.</returns>
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
         {
+            var document = span.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
+            var symbol = document.GetSemanticModelAsync().Result
+                .SyntaxTree.GetRoot()
+                .DescendantNodes()
+                .OfType<LiteralExpressionSyntax>()
+                .Where(x => x.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.StringLiteralExpression))
+                .ToList();
+            
+            
+
             var result = new List<ClassificationSpan>()
             {
                 new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(span.Start, span.Length)), this.classificationType)
             };
-
+            
             return result;
         }
 
