@@ -16,8 +16,8 @@ namespace SqlWhiteboard
             var parser = new TSql120Parser(true);
 
             var rules = Rules.RuleFactory.GetAllRules();
-            var engine = new Logic.RuleEngine(rules);
-            var warnings = engine.GetWarnings(scriptText, parser);
+            var engine = new Logic.RuleEngine(rules, parser);
+            var warnings = engine.GetWarnings(scriptText);
 
 
             if (warnings.ParseErrors.Count > 0)

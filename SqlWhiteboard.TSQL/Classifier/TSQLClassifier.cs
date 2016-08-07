@@ -25,6 +25,9 @@ namespace SqlWhiteboard.TSQL.Classifier
         /// </summary>
         private readonly IClassificationType classificationType;
 
+
+        private readonly SqlWhiteboard.Logic.RuleEngine ruleEngine;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TSQLClassifier"/> class.
         /// </summary>
@@ -32,7 +35,7 @@ namespace SqlWhiteboard.TSQL.Classifier
         internal TSQLClassifier(IClassificationTypeRegistryService registry)
         {
             this.classificationType = registry.GetClassificationType("TSQLClassifier");
-            var one = "five" + "two";
+            this.ruleEngine = new SqlWhiteboard.Logic.RuleEngine();
         }
 
         #region IClassifier
@@ -63,20 +66,30 @@ namespace SqlWhiteboard.TSQL.Classifier
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
         {
             var document = span.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
-            var symbol = document.GetSemanticModelAsync().Result
+            var semanticModel = document.GetSemanticModelAsync().Result;
+            
+            var changedSpan = new TextSpan(span.Start, span.Length);
+            var changedNodes = semanticModel
                 .SyntaxTree.GetRoot()
-                .DescendantNodes()
+                .DescendantNodesAndSelf(changedSpan)
                 .OfType<LiteralExpressionSyntax>()
                 .Where(x => x.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.StringLiteralExpression))
                 .ToList();
-            
-            
 
-            var result = new List<ClassificationSpan>()
+            var result = new List<ClassificationSpan>();
+            foreach (var item in changedNodes)
             {
-                new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(span.Start, span.Length)), this.classificationType)
-            };
-            
+                var text = item.Token.ValueText;
+                var isValidTSql = ruleEngine.IsValidTSQL(text);
+                if(isValidTSql)
+                {
+                    var intersect = span.Intersection(new Span(item.Span.Start, item.Span.Length));
+                    if (intersect != null)
+                    {
+                        result.Add(new ClassificationSpan(intersect.Value, classificationType));
+                    }
+                }
+            }            
             return result;
         }
 
